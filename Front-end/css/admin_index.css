@@ -1,0 +1,40 @@
+body {
+  background-color: #999999;
+}
+
+
+h1 {
+  font-weight: bold;
+}
+
+
+#div-container {
+  text-align: center;
+}
+
+#list-of-quizzes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-quiz {
+  margin: 2em;
+  width: 300px;
+}
+
+.form-control {
+  padding-bottom: 2em;
+  display: inline-block;
+  width: 350px;
+}
+
+.btn-info {
+  margin: 1em;
+}
+
+
+
+#create-quiz-button {
+  margin-top: 1em;
+}
