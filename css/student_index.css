@@ -1,0 +1,27 @@
+body {
+  background-color: #999999;
+}
+
+h1 {
+  font-weight: bold;
+}
+
+#div-container {
+  text-align: center;
+}
+
+#list-of-quizzes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-info {
+  margin: 1em;
+}
+
+.btn-quiz {
+  margin: 2em;
+  width: 300px;
+}

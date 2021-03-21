@@ -1,0 +1,21 @@
+h1 {
+  font-weight: bold;
+}
+
+body {
+  background-color: #999999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#container {
+  text-align: center;
+}
+
+
+.btn-primary {
+  margin-bottom: 1em;
+  width: 200px;
+}

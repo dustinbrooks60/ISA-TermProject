@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../../css/admin_edit.css" />
+  <script type="module" src="../../js/admin/adminEdit.js"></script>
+  <title>Admin</title>
+</head>
+
+<body>
+<a href="../../../index.html"><button class="btn btn-primary">Home</button></a>
+<a href="../admin/index.html"><button class="btn btn-primary">List of Quizzes</button></a>
+  <div class="question-container">
+    <h1>Create your questions below</h1>
+    <label for="question-body"></label><textarea id="question-body" class="form-control" placeholder="Enter your question here"></textarea>
+    <div id="quiz-choices-container">
+      <div><input type="radio" name="radio-answer" /><input class="creator option form-control" type="text" /></div>
+      <div><input type="radio" name="radio-answer" /><input class="creator option form-control" type="text" /></div>
+    </div>
+    <br>
+    <div id="choice-buttons-container">
+      <button id="remove-button" class="btn btn-primary" type="button" title="Remove Choice">Remove Choice</button>
+      <button id="add-button" class="btn btn-primary" type="button" title="Add Choice">Add Choice</button>
+    </div>
+    <br>
+    <button id="submit-button" class="btn btn-success" type="button">Create</button>
+    <button id="clear-button" class="btn btn-danger" type="button">Clear</button>
+  </div>
+
+  <h1 id="quiz-name"></h1>
+  <div id="question-area"></div>
+
+</body>
+
+</html>
