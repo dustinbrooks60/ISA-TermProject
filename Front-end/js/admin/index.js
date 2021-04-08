@@ -1,6 +1,12 @@
 'use strict';
 
 
+
+
+
+
+
+
 /* Creates the list of quizzes and their respective update buttons */
 const createListOfQuizzes = (quizArr) => {
   const quizList = document.getElementById('list-of-quizzes');

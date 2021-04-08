@@ -245,16 +245,16 @@ const createQuestion = (questionObj, choicesList) => {
   updateButton.innerText = 'Update Question';
   updateButton.addEventListener('click', () => updateQuestion(questionObj, choicesList));
 
-  // const deleteButton = document.createElement('button');
-  // deleteButton.classList.add(questionObj.questionId);
-  // deleteButton.innerText = 'Delete Question';
-  // deleteButton.addEventListener('click', () => deleteQuestion(questionObj));
+  const deleteButton = document.createElement('button');
+  deleteButton.classList.add(questionObj.questionId);
+  deleteButton.innerText = 'Delete Question';
+  deleteButton.addEventListener('click', () => deleteQuestion(questionObj, choicesList));
 
 
   const individualQuestionContainer = document.createElement('div');
   individualQuestionContainer.classList.add('question-container');
 
-  individualQuestionContainer.append(questionBody, choices_container, updateButton);
+  individualQuestionContainer.append(questionBody, choices_container, updateButton, deleteButton);
 
   return individualQuestionContainer;
 };
@@ -318,23 +318,58 @@ const updateQuestion = (questionObject, choicesArr) => {
 
 
 
-// const deleteQuestion = (questionObj) => {
-//
-//   const req = new XMLHttpRequest();
-//   req.open('DELETE', `https://comp4537-assignment-server.herokuapp.com/admin/question/${questionObj.questionId}`);
-//   req.setRequestHeader('Content-Type', 'application/json');
-//
-//   req.onreadystatechange = function () {
-//     if (this.readyState == 4 && this.status == 200) {
-//       clearQuestions();
-//       alert(this.responseText);
-//       getAllQuizzes();
-//     }
-//   };
-//
-//   req.send(JSON.stringify(questionObj));
-// };
-//
+
+
+
+const deleteQuestion = (questionObject, choicesArr) => {
+
+  const questionBody = document.getElementById('question_' + questionObject.questionId).value.trim();
+
+  const radios = document.getElementsByName(questionObject.questionId);
+
+  let answer;
+
+  for (let i = 0; i < radios.length; ++i) {
+    if (radios[i].checked) {
+      answer = POSSIBLE_OPTIONS[i];
+      break;
+    }
+  }
+
+
+
+  const choices = [];
+  choicesArr.forEach((choice, i) => {
+    const textNode = document.getElementById('choices_' + questionObject.questionId).getElementsByClassName(choice.choiceId);
+    if (!textNode[0].value.trim()) {
+      alert("Choice cannot be empty, try again!");
+      return;
+    }
+    choices.push({
+      choiceId: choice.choiceId,
+      choice: POSSIBLE_OPTIONS[i],
+      choiceBody: textNode[0].value});
+  });
+
+  console.log(choices);
+  const question = {questionId: questionObject.questionId, questionBody: questionBody, choices: choices, answer: answer};
+
+
+
+  const req = new XMLHttpRequest();
+  req.open('DELETE', `https://comp4537-assignment-server.herokuapp.com/admin/question/${questionObject.questionId}`);
+  req.setRequestHeader('Content-Type', 'application/json');
+
+  req.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      alert(this.responseText);
+      getAllQuizzes();
+    }
+  };
+
+  req.send(JSON.stringify(question));
+};
+
 
 
 
