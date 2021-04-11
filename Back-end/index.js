@@ -16,7 +16,7 @@ const accessTokenSecret = 'ejcx8e67djg8347dh3';
 
 app.all('*', (req, res, next) => {
 
-    res.set('Access-Control-Allow-Origin', 'https://dustin-brooks-60.netlify.app/comp4537/assignments/1/index.html');
+    res.set('Access-Control-Allow-Origin', 'https://dustin-brooks-60.netlify.app/');
     res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
     res.set('Access-Control-Allow-Headers', 'Content-Type');
 
