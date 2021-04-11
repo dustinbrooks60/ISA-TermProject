@@ -144,7 +144,7 @@ CREATE TABLE `admin` (
 DROP TABLE IF EXISTS `api`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `admin` (
+CREATE TABLE `api` (
   `getRequests` int(10) NOT NULL,
   `postRequests` int(10) NOT NULL,
   `putRequests` int(10) NOT NULL,
