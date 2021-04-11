@@ -112,7 +112,7 @@ CREATE TABLE `student` (
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-UNLOCK TABLES;
+
 
 
 
@@ -131,7 +131,7 @@ CREATE TABLE `admin` (
   PRIMARY KEY (`adminId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-UNLOCK TABLES;
+
 
 
 
@@ -151,7 +151,7 @@ CREATE TABLE `admin` (
   `deleteRequests` int(10) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-UNLOCK TABLES;
+
 
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
