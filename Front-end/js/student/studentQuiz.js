@@ -101,6 +101,13 @@ const groupBy = (data, key) => {
 const getQuizzes = () => {
   const clientUrl = new URL(window.location);
 
+
+  const req2 = new XMLHttpRequest();
+  req2.open('PUT', `https://comp4537-assignment-server.herokuapp.com/apiCount/get`);
+  req2.send();
+
+
+
   const req = new XMLHttpRequest();
 
   req.open('GET',  `https://comp4537-assignment-server.herokuapp.com/admin/quizzes/${clientUrl.searchParams.get('quizId')}/questions`, true);

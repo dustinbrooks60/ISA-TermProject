@@ -183,8 +183,8 @@ font-style: italic;
     <div class="app-desc">Upgraded Quiz API</div>
     <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
     <div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
-    <div class="app-desc">Version: UpdatedQuizAPI</div>
-    <div class="app-desc">BasePath:/COMP4537-TermProject/documentation/UpdatedQuizAPI</div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/COMP4537-TermProject/documentation/1.0.0</div>
     <div class="license-info">Apache 2.0</div>
     <div class="license-url">http://www.apache.org/licenses/LICENSE-2.0.html</div>
   <h2>Access</h2>
@@ -196,9 +196,14 @@ font-style: italic;
   <div class="method-summary"></div>
   <h4><a href="#Admins">Admins</a></h4>
   <ul>
+  <li><a href="#admin/createStudent"><code><span class="http-method">post</span> /students</code></a></li>
+  <li><a href="#admin/retrieveAllStudents"><code><span class="http-method">get</span> /students</code></a></li>
   <li><a href="#createQuiz"><code><span class="http-method">post</span> /quizzes</code></a></li>
   <li><a href="#deleteQuestion"><code><span class="http-method">delete</span> /questions</code></a></li>
+  <li><a href="#deleteStudent"><code><span class="http-method">delete</span> /students</code></a></li>
+  <li><a href="#submitQuestion"><code><span class="http-method">post</span> /questions</code></a></li>
   <li><a href="#updateQuestion"><code><span class="http-method">put</span> /questions</code></a></li>
+  <li><a href="#updateStudent"><code><span class="http-method">put</span> /students</code></a></li>
   </ul>
   <h4><a href="#StudentsAndAdmins">StudentsAndAdmins</a></h4>
   <ul>
@@ -208,6 +213,100 @@ font-style: italic;
   </ul>
 
   <h1><a name="Admins">Admins</a></h1>
+  <div class="method"><a name="admin/createStudent"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /students</code></pre></div>
+    <div class="method-summary">adds a new student to the database (<span class="nickname">admin/createStudent</span>)</div>
+    <div class="method-notes">Add a new student to the database</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>student object</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">new_student <a href="#question">question</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; student object to add to DB </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    new student created
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    invalid input, student not created
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="admin/retrieveAllStudents"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /students</code></pre></div>
+    <div class="method-summary">retrieves all students (<span class="nickname">admin/retrieveAllStudents</span>)</div>
+    <div class="method-notes">Retrieves all students</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#student">student</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "studentId" : 1,
+  "studentPassword" : "newPassword",
+  "studentUsername" : "newUsername"
+}, {
+  "studentId" : 1,
+  "studentPassword" : "newPassword",
+  "studentUsername" : "newUsername"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    student object
+        
+    <h4 class="field-label">400</h4>
+    bad SQL query
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
   <div class="method"><a name="createQuiz"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -295,6 +394,93 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
+  <div class="method"><a name="deleteStudent"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /students</code></pre></div>
+    <div class="method-summary">deletes a student (<span class="nickname">deleteStudent</span>)</div>
+    <div class="method-notes">Deletes a student from the DB</div>
+
+
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">studentId <a href="#student">student</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; studentId referencing the student to delete </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>""</code></pre>
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    student deleted from DB
+        <a href="#String">String</a>
+    <h4 class="field-label">400</h4>
+    bad SQL query
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="submitQuestion"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /questions</code></pre></div>
+    <div class="method-summary">adds a new question to the database (<span class="nickname">submitQuestion</span>)</div>
+    <div class="method-notes">Add a new question to the database</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>string</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">questionName <a href="#String">String</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; name of the question to add </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    new question created
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    invalid input, quiz not created
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
   <div class="method"><a name="updateQuestion"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -337,6 +523,54 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     quiz question updated correctly
+        <a href="#String">String</a>
+    <h4 class="field-label">400</h4>
+    bad SQL query
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="updateStudent"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /students</code></pre></div>
+    <div class="method-summary">updates a student (<span class="nickname">updateStudent</span>)</div>
+    <div class="method-notes">Updates a student in the DB</div>
+
+
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">student <a href="#student">student</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; student object to update the old student with </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>""</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    student updated correctly
         <a href="#String">String</a>
     <h4 class="field-label">400</h4>
     bad SQL query
@@ -492,6 +726,7 @@ font-style: italic;
     <li><a href="#choice"><code>choice</code> - </a></li>
     <li><a href="#question"><code>question</code> - </a></li>
     <li><a href="#quiz"><code>quiz</code> - </a></li>
+    <li><a href="#student"><code>student</code> - </a></li>
   </ol>
 
   <div class="model">
@@ -503,7 +738,7 @@ font-style: italic;
 <div class="param">choice </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
           <div class="param-desc"><span class="param-type">example: A</span></div>
 <div class="param">choiceBody </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: <span> tag is the answer</span></div>
+          <div class="param-desc"><span class="param-type">example: span tag is the answer</span></div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
@@ -527,6 +762,18 @@ font-style: italic;
           <div class="param-desc"><span class="param-type">example: 1</span></div>
 <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
           <div class="param-desc"><span class="param-type">example: JavaScript Quiz</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="student"><code>student</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">studentId </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 1</span></div>
+<div class="param">studentUsername </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: newUsername</span></div>
+<div class="param">studentPassword </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: newPassword</span></div>
     </div>  <!-- field-items -->
   </div>
   </body>

@@ -56,6 +56,12 @@ const submitQuestion = () => {
 
   const clientURL = new URL(window.location);
   const req = new XMLHttpRequest();
+
+  const req2 = new XMLHttpRequest();
+  req2.open('PUT', `https://comp4537-assignment-server.herokuapp.com/apiCount/post`);
+  req2.send();
+
+
   req.open('POST', `https://comp4537-assignment-server.herokuapp.com/admin/quizzes/${clientURL.searchParams.get('quizId')}`);
   req.setRequestHeader('Content-Type', 'application/json');
 
@@ -69,6 +75,10 @@ const submitQuestion = () => {
   };
 
   req.send(JSON.stringify(question));
+
+
+
+
 };
 
 
@@ -179,11 +189,19 @@ const getAllQuizzes = () => {
 
   const req = new XMLHttpRequest();
 
+
+  const req2 = new XMLHttpRequest();
+  req2.open('PUT', `https://comp4537-assignment-server.herokuapp.com/apiCount/get`);
+  req2.send();
+
+
+
   req.open('GET', `https://comp4537-assignment-server.herokuapp.com/admin/quizzes/${clientURL.searchParams.get('quizId')}/questions`, true);
   req.send();
   req.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       const questions = JSON.parse(this.responseText);
+
 
       req.open('GET', `https://comp4537-assignment-server.herokuapp.com/admin/quizzes/${clientURL.searchParams.get('quizId')}/choices`, true);
       req.send();
@@ -303,6 +321,13 @@ const updateQuestion = (questionObject, choicesArr) => {
 
   const question = {questionId: questionObject.questionId, questionBody: questionBody, choices: choices, answer: answer};
 
+
+  const req2 = new XMLHttpRequest();
+  req2.open('PUT', `https://comp4537-assignment-server.herokuapp.com/apiCount/put`);
+  req2.send();
+
+
+
   const req = new XMLHttpRequest();
   req.open('PUT', `https://comp4537-assignment-server.herokuapp.com/admin/question/${questionObject.questionId}`);
   req.setRequestHeader('Content-Type', 'application/json');
@@ -354,6 +379,9 @@ const deleteQuestion = (questionObject, choicesArr) => {
   console.log(choices);
   const question = {questionId: questionObject.questionId, questionBody: questionBody, choices: choices, answer: answer};
 
+  const req2 = new XMLHttpRequest();
+  req2.open('PUT', `https://comp4537-assignment-server.herokuapp.com/apiCount/delete`);
+  req2.send();
 
 
   const req = new XMLHttpRequest();

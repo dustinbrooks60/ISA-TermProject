@@ -12,7 +12,25 @@ h1 {
   text-align: center;
 }
 
+#div-container2 {
+  text-align: center;
+}
+
+
+#div-container3 {
+  text-align: center;
+}
+
+
 #list-of-quizzes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+#list-of-students {
   display: flex;
   justify-content: center;
   align-items: center;

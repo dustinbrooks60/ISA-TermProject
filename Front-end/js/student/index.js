@@ -1,9 +1,16 @@
 'use strict';
 
 
-/* Retrieves all the quizes */
+/* Retrieves all the quizzes */
 const getQuizzes = () => {
   const req = new XMLHttpRequest();
+
+
+
+  const req2 = new XMLHttpRequest();
+  req2.open('PUT', `https://comp4537-assignment-server.herokuapp.com/apiCount/get`);
+  req2.send();
+
 
   req.open('GET', 'https://comp4537-assignment-server.herokuapp.com/quizzes', true);
   req.send();

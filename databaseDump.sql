@@ -94,6 +94,66 @@ LOCK TABLES `quiz` WRITE;
 INSERT INTO `quiz` VALUES (4,'HTML Quiz'),(14,'JavaScript Quiz');
 /*!40000 ALTER TABLE `quiz` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+
+--
+-- Table structure for table `student`
+--
+
+DROP TABLE IF EXISTS `student`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `student` (
+  `studentId` int(10) NOT NULL AUTO_INCREMENT,
+  `studentUsername` varchar(100) NOT NULL,
+  `studentPassword` varchar(100) NOT NULL,
+  PRIMARY KEY (`studentId`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+UNLOCK TABLES;
+
+
+
+
+--
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admin` (
+  `adminId` int(10) NOT NULL AUTO_INCREMENT,
+  `adminUsername` varchar(100) NOT NULL,
+  `adminPassword` varchar(100) NOT NULL,
+  PRIMARY KEY (`adminId`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+UNLOCK TABLES;
+
+
+
+
+
+--
+-- Table structure for table `api`
+--
+
+DROP TABLE IF EXISTS `api`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admin` (
+  `getRequests` int(10) NOT NULL,
+  `postRequests` int(10) NOT NULL,
+  `putRequests` int(10) NOT NULL,
+  `deleteRequests` int(10) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+UNLOCK TABLES;
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

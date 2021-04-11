@@ -37,6 +37,14 @@ const createListOfQuizzes = (quizArr) => {
 
 /* Retrieves all the quizzes from the DB */
 const retrieveAllQuizzes = () => {
+
+
+  const req2 = new XMLHttpRequest();
+  req2.open('PUT', `https://comp4537-assignment-server.herokuapp.com/apiCount/get`);
+  req2.send();
+
+
+
   const req = new XMLHttpRequest();
 
   req.open('GET', 'https://comp4537-assignment-server.herokuapp.com/quizzes', true);
@@ -77,6 +85,14 @@ const createQuiz = () => {
 
   }
   else {
+
+
+    const req2 = new XMLHttpRequest();
+    req2.open('PUT', `https://comp4537-assignment-server.herokuapp.com/apiCount/post`);
+    req2.send();
+
+
+
     const request = new XMLHttpRequest();
 
     request.open('POST', 'https://comp4537-assignment-server.herokuapp.com/admin/quizzes', true);
@@ -93,10 +109,138 @@ const createQuiz = () => {
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* Creates the list of students and their respective update buttons */
+const createListOfStudents = (studentArr) => {
+  const studentList = document.getElementById('list-of-students');
+
+  /* Clear all children in the quizList */
+  while(studentList.hasChildNodes()) {
+    studentList.removeChild(studentList.lastChild);
+  }
+
+  studentArr.forEach(student => {
+
+    const button = document.createElement('button');
+    button.id = student.studentId;
+    button.textContent = student.studentUsername;
+    button.classList.add('btn', 'btn-primary', 'btn-quiz');
+
+    button.addEventListener('click', () => {
+      const current_url = new URL(window.location);
+      current_url.pathname = '/comp4537/assignments/1/quiz/html/admin/studentEdit.html';
+      current_url.search = `studentId=${student.studentId}`;
+      window.location.href = current_url;
+    });
+
+    studentList.appendChild(button);
+  });
+};
+
+
+
+
+
+/* Check if a quiz name already exists in the list of quizzes */
+const uniqueStudentName = (studentName) => {
+  const listOfStudents = document.getElementById('list-of-students').children;
+
+  for (const student of listOfStudents) {
+    if (student.innerText.trim() === studentName) return true;
+  }
+  return false;
+};
+
+
+
+
+/* Retrieves all the students from the DB */
+const retrieveAllStudents = () => {
+
+
+  const req2 = new XMLHttpRequest();
+  req2.open('PUT', `https://comp4537-assignment-server.herokuapp.com/apiCount/get`);
+  req2.send();
+
+
+
+  const req = new XMLHttpRequest();
+
+  req.open('GET', 'https://comp4537-assignment-server.herokuapp.com/students', true);
+  req.send();
+  req.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      createListOfStudents(JSON.parse(this.response));
+    }
+  }
+};
+
+
+
+
+
+/* Creates a new student based on the given name. Name cannot be blank and must be unique */
+const createStudent = () => {
+
+  const studentUsername = document.getElementById("student-username").value.trim();
+  const studentPassword = document.getElementById("student-password").value.trim();
+
+  if (!studentUsername || !studentPassword) {
+    alert("Please enter a student name and password");
+  }
+
+
+  else if (uniqueStudentName(studentUsername)) {
+    alert("Please enter a unique student name!");
+
+  }
+  else {
+
+
+    const req2 = new XMLHttpRequest();
+    req2.open('PUT', `https://comp4537-assignment-server.herokuapp.com/apiCount/post`);
+    req2.send();
+
+
+
+    const request = new XMLHttpRequest();
+
+    request.open('POST', 'https://comp4537-assignment-server.herokuapp.com/students', true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        retrieveAllStudents();
+        document.getElementById('student-username').value = '';
+        document.getElementById('student-password').value = '';
+      }
+    };
+
+    const new_student = {studentUsername: studentUsername, studentPassword: studentPassword};
+    request.send(JSON.stringify(new_student));
+  }
+};
+
+
+
+
+
 /* Initialize the page */
 const initializePage = () => {
   document.getElementById("create-quiz-button").addEventListener('click', () => createQuiz());
+  document.getElementById("create-student-button").addEventListener('click', () => createStudent());
   retrieveAllQuizzes();
+  retrieveAllStudents()
 };
 
 initializePage();

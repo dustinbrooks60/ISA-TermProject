@@ -7,10 +7,36 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../../css/admin_index.css" />
   <script type="module" src="../../js/admin/index.js"></script>
-  <title>List of Quizzes</title>
+  <title>Admin Dashboard</title>
+
+
+  <script>
+    function retrieveAllAPI() {
+
+      const req = new XMLHttpRequest();
+
+
+      req.open('GET', 'https://comp4537-assignment-server.herokuapp.com/apiCount', true);
+      req.send();
+      req.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(this.response);
+          const requests = JSON.parse(this.response);
+          window.alert("GET: " + requests[0]['getRequests'] + " / " + "POST: " + requests[0]['postRequests'] + " / " + "PUT: " + requests[0]['putRequests'] + " / " + "DELETE: " + requests[0]['deleteRequests'] );
+        }
+      }
+    }
+
+  </script>
+
+
+
 </head>
 <body>
 <a href="../../../index.html"><button class="btn btn-info">Home</button></a>
+
+
+
 <div id="div-container">
   <h1>Create a new quiz or select a quiz to edit</h1>
   <div>
@@ -19,5 +45,30 @@
   </div>
   <div id="list-of-quizzes"></div>
 </div>
+
+
+
+<div id="div-container2">
+  <h1>Add a new student or select a student to edit</h1>
+  <div>
+    <label for="student-username"></label><input type="text" id="student-username" class="form-control">
+    <label for="student-password"></label><input type="text" id="student-password" class="form-control">
+    <button id="create-student-button" class="btn btn-success">Create Student</button>
+  </div>
+  <div id="list-of-students"></div>
+</div>
+
+
+
+
+<div id="div-container3">
+  <h1>API Counts</h1>
+  <button onclick="retrieveAllAPI()" id="create-api-button" class="btn btn-success">Click for API count</button>
+  <div id="list-of-apis"></div>
+</div>
+
+
+
+
 </body>
 </html>

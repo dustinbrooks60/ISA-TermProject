@@ -2,15 +2,21 @@
 
 const express = require('express');
 const mysql = require('mysql');
+const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
 
 const app = express();
 
 const PORT = process.env.PORT || 8000;
 
 
+const accessTokenSecret = 'ejcx8e67djg8347dh3';
+
+
+
 app.all('*', (req, res, next) => {
 
-    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Origin', 'https://dustin-brooks-60.netlify.app/comp4537/assignments/1/index.html');
     res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
     res.set('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -106,7 +112,7 @@ let createAdminTable = `CREATE TABLE if not exists admin (
   adminId INTEGER(10) NOT NULL AUTO_INCREMENT,
   adminUsername VARCHAR(100) NOT NULL,
   adminPassword VARCHAR(100) NOT NULL,
-  PRIMARY KEY (adminId),
+  PRIMARY KEY (adminId)
 )`;
 
 db.query(createAdminTable, function(err, results, fields) {
@@ -115,6 +121,9 @@ db.query(createAdminTable, function(err, results, fields) {
         throw err;
     }
 });
+
+
+
 
 
 
@@ -122,15 +131,116 @@ let createStudentTable = `CREATE TABLE if not exists student (
   studentId INTEGER(10) NOT NULL AUTO_INCREMENT,
   studentUsername VARCHAR(100) NOT NULL,
   studentPassword VARCHAR(100) NOT NULL,
-  PRIMARY KEY (studentId),
+  PRIMARY KEY (studentId)
 )`;
 
-db.query(createAdminTable, function(err, results, fields) {
+db.query(createStudentTable, function(err, results, fields) {
     if (err) {
         console.log(err.message);
         throw err;
     }
 });
+
+
+
+
+
+let createAPITable = `CREATE TABLE if not exists api (
+  getRequests INTEGER(10) NOT NULL,
+  postRequests INTEGER(10) NOT NULL,
+  putRequests INTEGER(10) NOT NULL,
+  deleteRequests INTEGER(10) NOT NULL
+)`;
+
+db.query(createAPITable, function(err, results, fields) {
+    if (err) {
+        console.log(err.message);
+        throw err;
+    }
+});
+
+
+
+
+
+db.query('INSERT into api (getRequests, postRequests, putRequests, deleteRequests) VALUES (0, 0, 0, 0)', function(err, results, fields) {
+    if (err) {
+        console.log(err.message);
+        throw err;
+    }
+});
+
+
+
+
+
+
+
+
+/* Returns all the API counts in the DB */
+app.get('/apiCount', (req, res) => {
+    db.query('SELECT * FROM api', (err, results) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+
+
+        res.set('Content-Type', 'text/plain');
+        res.send(JSON.stringify(results));
+    });
+});
+
+
+
+
+/* Updates the get API counts in the DB */
+app.put('/apiCount/get', (req, res) => {
+    db.query(`UPDATE api SET getRequests = getRequests + 1`, (err, results) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+        res.end();
+    });
+});
+
+
+/* Updates the post API counts in the DB */
+app.put('/apiCount/post', (req, res) => {
+    db.query(`UPDATE api SET postRequests = postRequests + 1`, (err, results) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+        res.end();
+    });
+});
+
+
+/* Updates the put API counts in the DB */
+app.put('/apiCount/put', (req, res) => {
+    db.query(`UPDATE api SET putRequests = putRequests + 1`, (err, results) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+        res.end();
+    });
+});
+
+
+/* Updates the delete API counts in the DB */
+app.put('/apiCount/delete', (req, res) => {
+    db.query(`UPDATE api SET deleteRequests = deleteRequests + 1`, (err, results) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+        res.end();
+    });
+});
+
 
 
 
@@ -154,11 +264,39 @@ app.post('/admin/quizzes', (req, res) => {
                 throw err;
             }
 
+
             res.end();
         });
     });
 
 });
+
+
+
+
+/* Creates a new student in the DB with a specific username and password */
+app.post('/students', (req, res) => {
+
+    let studentObject = '';
+
+    req.on('data', data => {
+        studentObject += data;
+    });
+
+    req.on('end', () => {
+        const student = JSON.parse(studentObject);
+        db.query('INSERT INTO student (studentUsername, studentPassword) VALUES (?, ?)', [student.studentUsername, student.studentPassword], (err, results) => {
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+
+            res.send("Student was added!");
+        });
+    });
+
+});
+
 
 
 
@@ -183,6 +321,106 @@ app.get('/quizzes', (req, res) => {
         res.end(JSON.stringify(quizzes));
     });
 });
+
+
+
+
+/* Retrieves all the admins from the server */
+app.get('/admins', (req, res) => {
+    db.query('SELECT * FROM admin', (err, results) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+
+        const admins = [];
+        results.forEach(admin => {
+            admins.push({
+                adminId: admin.adminId,
+                adminUsername: admin.adminUsername,
+                adminPassword: admin.adminPassword
+            });
+        });
+
+        res.set('Content-Type', 'application/json');
+        res.end(JSON.stringify(admins));
+    });
+});
+
+
+
+/* Retrieves all the students from the server */
+app.get('/students', (req, res) => {
+    db.query('SELECT * FROM student', (err, results) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+
+        const students = [];
+        results.forEach(student => {
+            students.push({
+                studentId: student.studentId,
+                studentUsername: student.studentUsername,
+                studentPassword: student.studentPassword
+            });
+        });
+
+        res.set('Content-Type', 'application/json');
+        res.end(JSON.stringify(students));
+    });
+});
+
+
+
+
+
+/* Updating a student */
+app.put('/students', (req, res) => {
+
+    let body = '';
+    req.on('data', data => {
+        body += data;
+    });
+
+    req.on('end', () => {
+        const student = JSON.parse(body);
+
+        // Updates the question body in the question table
+        db.query(`UPDATE student SET studentUsername = ?, studentPassword = ? WHERE studentId = ?`, [student.studentUsername, student.studentPassword, student.studentId], (err, results) => {
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+
+        });
+
+        res.send("Student was updated!");
+    });
+});
+
+
+
+/* Deleting a student */
+app.delete('/students/:studentId', (req, res) => {
+    // Updates the question body in the question table
+    db.query(`DELETE from student WHERE studentId = ?`, [req.params.studentId], (err, results) => {
+        if (err) {
+            console.log(err);
+            throw err;
+            }
+
+        res.send("Student was deleted!");
+    });
+});
+
+
+
+
+
+
+
+
 
 
 
@@ -297,7 +535,7 @@ app.put('/admin/question/:questionId', (req, res) => {
         db.query(`UPDATE question SET questionBody = ?, answer = ? WHERE questionId = ?`, [question.questionBody, question.answer, question.questionId], (err, results) => {
             if (err) {
                 console.log(err);
-                throw er;
+                throw err;
             }
 
             for (let i = 0; i < question.choices.length; ++i) {
